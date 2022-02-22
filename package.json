@@ -15,7 +15,10 @@
     "start": "rollup -c -w",
     "publish-major": "npm version major && npm publish --access public",
     "publish-minor": "npm version minor && npm publish --access public",
-    "publish-patch": "npm version patch && npm publish --access public"
+    "publish-patch": "npm version patch && npm publish --access public",
+    "patch": "./build_deploy.sh \"Update package\" \"publish-patch\"",
+    "minor": "./build_deploy.sh \"Update package\" \"publish-minor\"",
+    "major": "./build_deploy.sh \"Update package\" \"publish-major\""
   },
   "peerDependencies": {
     "react": ">= 16.8.0",

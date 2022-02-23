@@ -4,6 +4,7 @@ export const usePagination = ({ page, totalRecords, rowsPerPage, onPageChange })
 	const totalPages = Math.max(0, Math.ceil(totalRecords / rowsPerPage) - 1);
 
 	const handleFirstPageButtonClick = (event: any) => {
+		if (page <= 0) return;
 		onPageChange(event, 0);
 	};
 
@@ -13,6 +14,7 @@ export const usePagination = ({ page, totalRecords, rowsPerPage, onPageChange })
 	};
 
 	const handleNumberOfPageButtonClick = (event: any, numberOfPage: number) => {
+		if (page === numberOfPage) return;
 		onPageChange(event, numberOfPage);
 	}
 
@@ -22,6 +24,7 @@ export const usePagination = ({ page, totalRecords, rowsPerPage, onPageChange })
 	};
 
 	const handleLastPageButtonClick = (event: any) => {
+		if (page + 1 > totalPages) return;
 		onPageChange(event, totalPages);
 	};
 

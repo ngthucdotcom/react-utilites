@@ -1,7 +1,7 @@
 // @ts-ignore
 export const usePagination = ({ page, totalRecords, rowsPerPage, onPageChange }) => {
 
-	const totalPages = Math.max(0, Math.floor(totalRecords / rowsPerPage));
+	const totalPages = Math.max(1, Math.ceil(totalRecords / rowsPerPage));
 
 	const handleFirstPageButtonClick = (event: any) => {
 		if (page <= 0) return;

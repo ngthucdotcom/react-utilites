@@ -1,9 +1,15 @@
 const moment = require("moment");
 
 enum LoggerLevel {
-	'INFO' = 'INFO',
-	'WARN' = 'WARN',
-	'ERROR' = 'ERROR'
+	'INFO',
+	'WARN',
+	'ERROR'
+}
+
+interface UseLoggerParams  {
+	className: string;
+	environment?: string;
+	dateTimeFormat?: string
 }
 
 /**
@@ -25,7 +31,7 @@ enum LoggerLevel {
  * @subparam environment: optional, default is 'local'
  * @subparam dateTimeFormat: optional, default is 'YYYY-MM-DD HH:mm:ss'
  */
-export const useLogger = (initialize: {className: string, environment?: string, dateTimeFormat?: string}) => {
+export const useLogger = (initialize: UseLoggerParams) => {
 
 	/**
 	 * A function to make color log by log level
@@ -59,15 +65,6 @@ export const useLogger = (initialize: {className: string, environment?: string, 
 		} else {
 			console.log(`%c[${dateTime}][${level}][${className}]:`, getStyles(level), rawData);
 		}
-		return {
-			message: 'Build log success',
-			data: {
-				className,
-				level,
-				data,
-				options
-			}
-		}
 	}
 
 	/**
@@ -77,11 +74,12 @@ export const useLogger = (initialize: {className: string, environment?: string, 
 	 */
 	const writeLog = (level: LoggerLevel, data: any, options: any = null) => {
 		if (initialize.environment === "production") {
-			if (level === LoggerLevel.ERROR) {
-				return buildLog(initialize.className.toUpperCase(), LoggerLevel.ERROR, data, options);
+			if (level >= LoggerLevel.ERROR) {
+				buildLog(initialize.className.toUpperCase(), LoggerLevel.ERROR, data, options);
 			}
+			return;
 		}
-		return buildLog(initialize.className.toUpperCase(), level, data, options);
+		buildLog(initialize.className.toUpperCase(), level, data, options);
 	}
 
 	/**
@@ -89,7 +87,7 @@ export const useLogger = (initialize: {className: string, environment?: string, 
 	 * @param options
 	 */
 	const log_info = (rawData: any, options: any = null) => {
-		return writeLog(LoggerLevel.INFO, rawData, options);
+		writeLog(LoggerLevel.INFO, rawData, options);
 	}
 
 	/**
@@ -97,7 +95,7 @@ export const useLogger = (initialize: {className: string, environment?: string, 
 	 * @param options
 	 */
 	const log_warn = (rawData: any, options: any = null) => {
-		return writeLog(LoggerLevel.WARN, rawData, options);
+		writeLog(LoggerLevel.WARN, rawData, options);
 	}
 
 	/**
@@ -105,8 +103,10 @@ export const useLogger = (initialize: {className: string, environment?: string, 
 	 * @param options
 	 */
 	const log_error = (rawData: any, options: any = null) => {
-		return writeLog(LoggerLevel.ERROR, rawData, options);
+		writeLog(LoggerLevel.ERROR, rawData, options);
 	}
 
 	return { log_info, log_warn, log_error };
 }
+
+export {};

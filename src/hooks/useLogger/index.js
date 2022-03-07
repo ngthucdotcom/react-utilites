@@ -1,11 +1,5 @@
 const moment = require("moment");
 
-enum LoggerLevel {
-	'INFO' = 'INFO',
-	'WARN' = 'WARN',
-	'ERROR' = 'ERROR'
-}
-
 /**
  * The function write basic log with color in browser
  * To usage, please init variable(s) className and dateTimeFormat (optional)
@@ -20,13 +14,13 @@ export const useLogger = (className = '', environment = 'local', dateTimeFormat 
 	 * A function to make color log by log level
 	 * @param level
 	 */
-	const getStyles = (level: LoggerLevel) => {
+	const getStyles = (level) => {
 		switch (level) {
-			case LoggerLevel.INFO:
+			case 'INFO':
 				return 'color: #00ccff';
-			case LoggerLevel.WARN:
+			case 'WARN':
 				return 'color: #ffcc00';
-			case LoggerLevel.ERROR:
+			case 'ERROR':
 				return 'color: #ff0000';
 			default:
 				return 'color: #00ccff';
@@ -39,14 +33,14 @@ export const useLogger = (className = '', environment = 'local', dateTimeFormat 
 	 * @param data
 	 * @param options
 	 */
-	const buildLog = (className: string, level: LoggerLevel, data: any, options: any = null) => {
+	const buildLog = (className, level, data, options = null) => {
 		const dateTime = moment().format(dateTimeFormat);
 		const rawData = JSON.stringify(data);
 
-		if (options) {
-			console.log(`%c[${dateTime}][${level}][${className}]:`, getStyles(level), rawData, options);
-		} else {
+		if (!options) {
 			console.log(`%c[${dateTime}][${level}][${className}]:`, getStyles(level), rawData);
+		} else {
+			console.log(`%c[${dateTime}][${level}][${className}]:`, getStyles(level), rawData, options);
 		}
 	}
 
@@ -55,10 +49,10 @@ export const useLogger = (className = '', environment = 'local', dateTimeFormat 
 	 * @param data
 	 * @param options
 	 */
-	const writeLog = (level: LoggerLevel, data: any, options: any = null) => {
+	const writeLog = (level, data, options = null) => {
 		if (environment === "production") {
-			if (level === LoggerLevel.ERROR) {
-				buildLog(className.toUpperCase(), LoggerLevel.ERROR, data, options);
+			if (level === 'ERROR') {
+				buildLog(className.toUpperCase(), 'ERROR', data, options);
 			}
 			return;
 		}
@@ -69,24 +63,24 @@ export const useLogger = (className = '', environment = 'local', dateTimeFormat 
 	 * @param rawData
 	 * @param options
 	 */
-	const log_info = (rawData: any, options: any = null) => {
-		writeLog(LoggerLevel.INFO, rawData, options);
+	const log_info = (rawData, options = null) => {
+		writeLog('INFO', rawData, options);
 	}
 
 	/**
 	 * @param rawData
 	 * @param options
 	 */
-	const log_warn = (rawData: any, options: any = null) => {
-		writeLog(LoggerLevel.WARN, rawData, options);
+	const log_warn = (rawData, options = null) => {
+		writeLog('WARN', rawData, options);
 	}
 
 	/**
 	 * @param rawData
 	 * @param options
 	 */
-	const log_error = (rawData: any, options: any = null) => {
-		writeLog(LoggerLevel.ERROR, rawData, options);
+	const log_error = (rawData, options = null) => {
+		writeLog('ERROR', rawData, options);
 	}
 
 	return { log_info, log_warn, log_error };

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export const useRandomEvenOdd = (initial: any) => {
+export const useRandomEvenOdd = (initial = {}) => {
 
 	const { enableFlag } = initial;
 	const [isEven, setIsEven] = useState(true);

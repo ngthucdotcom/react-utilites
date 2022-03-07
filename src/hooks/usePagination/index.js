@@ -6,27 +6,27 @@ export const usePagination = ({ page, limitPages, totalRecords, rowsPerPage, onP
 	const startPage = Math.max(Math.min(totalPages - limitPages, page), 0);
 	const endPage = Math.min(page + limitPages, totalPages);
 
-	const handleFirstPageButtonClick = (event: any) => {
+	const handleFirstPageButtonClick = (event) => {
 		if (page <= 0) return;
 		onPageChange(event, 0);
 	};
 
-	const handleBackButtonClick = (event: any) => {
+	const handleBackButtonClick = (event) => {
 		if (page <= 0) return;
 		onPageChange(event, page - 1);
 	};
 
-	const handlePageChange = (event: any, numberOfPage: number) => {
+	const handlePageChange = (event, numberOfPage) => {
 		if (page === numberOfPage) return;
 		onPageChange(event, numberOfPage);
 	};
 
-	const handleNextButtonClick = (event: any) => {
+	const handleNextButtonClick = (event) => {
 		if (page + 1 >= totalPages) return;
 		onPageChange(event, page + 1);
 	};
 
-	const handleLastPageButtonClick = (event: any) => {
+	const handleLastPageButtonClick = (event) => {
 		if (page + 1 >= totalPages) return;
 		onPageChange(event, totalPages - 1);
 	};

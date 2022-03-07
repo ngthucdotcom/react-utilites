@@ -67,7 +67,6 @@ export const useLogger = (initialize: {className: string, environment?: string, 
 	 * @param options
 	 */
 	const writeLog = (level: LoggerLevel, data: any, options: any = null) => {
-		// @ts-ignore
 		if (initialize.environment === "production") {
 			if (level === LoggerLevel.ERROR) {
 				buildLog(initialize.className.toUpperCase(), LoggerLevel.ERROR, data, options);

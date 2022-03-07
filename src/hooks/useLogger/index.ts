@@ -1,5 +1,11 @@
 const moment = require("moment");
 
+enum LoggerLevel {
+	'INFO' = 'INFO',
+	'WARN' = 'WARN',
+	'ERROR' = 'ERROR'
+}
+
 /**
  * The function write basic log with color in browser
  * To usage, please init variable(s) className and dateTimeFormat (optional)
@@ -16,11 +22,11 @@ export const useLogger = (className = '', environment = 'local', dateTimeFormat 
 	 */
 	const getStyles = (level) => {
 		switch (level) {
-			case 'INFO':
+			case LoggerLevel.INFO:
 				return 'color: #00ccff';
-			case 'WARN':
+			case LoggerLevel.WARN:
 				return 'color: #ffcc00';
-			case 'ERROR':
+			case LoggerLevel.ERROR:
 				return 'color: #ff0000';
 			default:
 				return 'color: #00ccff';
@@ -33,14 +39,14 @@ export const useLogger = (className = '', environment = 'local', dateTimeFormat 
 	 * @param data
 	 * @param options
 	 */
-	const buildLog = (className, level, data, options = null) => {
+	const buildLog = (className: string, level: LoggerLevel, data: any, options: any = null) => {
 		const dateTime = moment().format(dateTimeFormat);
 		const rawData = JSON.stringify(data);
 
-		if (!options) {
-			console.log(`%c[${dateTime}][${level}][${className}]:`, getStyles(level), rawData);
-		} else {
+		if (options) {
 			console.log(`%c[${dateTime}][${level}][${className}]:`, getStyles(level), rawData, options);
+		} else {
+			console.log(`%c[${dateTime}][${level}][${className}]:`, getStyles(level), rawData);
 		}
 	}
 
@@ -49,10 +55,10 @@ export const useLogger = (className = '', environment = 'local', dateTimeFormat 
 	 * @param data
 	 * @param options
 	 */
-	const writeLog = (level, data, options = null) => {
+	const writeLog = (level: LoggerLevel, data: any, options: any = null) => {
 		if (environment === "production") {
-			if (level === 'ERROR') {
-				buildLog(className.toUpperCase(), 'ERROR', data, options);
+			if (level === LoggerLevel.ERROR) {
+				buildLog(className.toUpperCase(), LoggerLevel.ERROR, data, options);
 			}
 			return;
 		}
@@ -63,24 +69,24 @@ export const useLogger = (className = '', environment = 'local', dateTimeFormat 
 	 * @param rawData
 	 * @param options
 	 */
-	const log_info = (rawData, options = null) => {
-		writeLog('INFO', rawData, options);
+	const log_info = (rawData: any, options: any = null) => {
+		writeLog(LoggerLevel.INFO, rawData, options);
 	}
 
 	/**
 	 * @param rawData
 	 * @param options
 	 */
-	const log_warn = (rawData, options = null) => {
-		writeLog('WARN', rawData, options);
+	const log_warn = (rawData: any, options: any = null) => {
+		writeLog(LoggerLevel.WARN, rawData, options);
 	}
 
 	/**
 	 * @param rawData
 	 * @param options
 	 */
-	const log_error = (rawData, options = null) => {
-		writeLog('ERROR', rawData, options);
+	const log_error = (rawData: any, options: any = null) => {
+		writeLog(LoggerLevel.ERROR, rawData, options);
 	}
 
 	return { log_info, log_warn, log_error };

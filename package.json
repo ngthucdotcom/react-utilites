@@ -1,7 +1,7 @@
 {
-  "name": "react-utilities",
+  "name": "react-daily-utilities",
   "version": "2.0.0",
-  "description": "Utilities for React.js",
+  "description": "Daily utilities for React.js",
   "author": "ngthuc",
   "license": "MIT",
   "repository": "ngthucdotcom/react-utilities",

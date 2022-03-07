@@ -1,3 +1,5 @@
+import {useCallback} from "react";
+
 const moment = require("moment");
 
 enum LoggerLevel {
@@ -86,27 +88,25 @@ export const useLogger = (initialize: UseLoggerParams) => {
 	 * @param rawData
 	 * @param options
 	 */
-	const log_info = (rawData: any, options: any = null) => {
+	const log_info = useCallback((rawData: any, options: any = null) => {
 		writeLog(LoggerLevel.INFO, rawData, options);
-	}
+	}, []);
 
 	/**
 	 * @param rawData
 	 * @param options
 	 */
-	const log_warn = (rawData: any, options: any = null) => {
+	const log_warn = useCallback((rawData: any, options: any = null) => {
 		writeLog(LoggerLevel.WARN, rawData, options);
-	}
+	}, []);
 
 	/**
 	 * @param rawData
 	 * @param options
 	 */
-	const log_error = (rawData: any, options: any = null) => {
+	const log_error =  useCallback((rawData: any, options: any = null) => {
 		writeLog(LoggerLevel.ERROR, rawData, options);
-	}
+	}, []);
 
 	return { log_info, log_warn, log_error };
 }
-
-export {};

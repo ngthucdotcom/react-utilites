@@ -1,22 +1,22 @@
-# react-utilites
-Utilities for React.js
+# react-daily-utilities
+Daily utilities for React.js
 
 ## Usage
 
 ### Install package
 ```
- npm i --save-dev react-utilites
+ npm i --save-dev react-daily-utilities
 ```
 
 ### Use package
 * Import to component (example with useLogger hook)
 ```
- import {useLogger} from "react-utilites";
+ import {useLogger} from "react-daily-utilities";
 ```
 
 * Init class/function/component name for every component (default local environment)
 ```
- const logger = useLogger(<app-name>);
+ const logger = useLogger({className: <app-name>});
 ```
 
 * Write log with type info | warning | error

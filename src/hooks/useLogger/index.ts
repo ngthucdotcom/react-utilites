@@ -25,7 +25,7 @@ enum LoggerLevel {
  * @subparam environment: optional, default is 'local'
  * @subparam dateTimeFormat: optional, default is 'YYYY-MM-DD HH:mm:ss'
  */
-export const useLogger = (initialize: {className: string, environment: string, dateTimeFormat: string}) => {
+export const useLogger = (initialize: {className: string, environment?: string, dateTimeFormat?: string}) => {
 
 	/**
 	 * A function to make color log by log level

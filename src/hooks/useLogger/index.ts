@@ -59,6 +59,15 @@ export const useLogger = (initialize: {className: string, environment?: string, 
 		} else {
 			console.log(`%c[${dateTime}][${level}][${className}]:`, getStyles(level), rawData);
 		}
+		return {
+			message: 'Build log success',
+			data: {
+				className,
+				level,
+				data,
+				options
+			}
+		}
 	}
 
 	/**
@@ -69,11 +78,10 @@ export const useLogger = (initialize: {className: string, environment?: string, 
 	const writeLog = (level: LoggerLevel, data: any, options: any = null) => {
 		if (initialize.environment === "production") {
 			if (level === LoggerLevel.ERROR) {
-				buildLog(initialize.className.toUpperCase(), LoggerLevel.ERROR, data, options);
+				return buildLog(initialize.className.toUpperCase(), LoggerLevel.ERROR, data, options);
 			}
-			return;
 		}
-		buildLog(initialize.className.toUpperCase(), level, data, options);
+		return buildLog(initialize.className.toUpperCase(), level, data, options);
 	}
 
 	/**
@@ -81,7 +89,7 @@ export const useLogger = (initialize: {className: string, environment?: string, 
 	 * @param options
 	 */
 	const log_info = (rawData: any, options: any = null) => {
-		writeLog(LoggerLevel.INFO, rawData, options);
+		return writeLog(LoggerLevel.INFO, rawData, options);
 	}
 
 	/**
@@ -89,7 +97,7 @@ export const useLogger = (initialize: {className: string, environment?: string, 
 	 * @param options
 	 */
 	const log_warn = (rawData: any, options: any = null) => {
-		writeLog(LoggerLevel.WARN, rawData, options);
+		return writeLog(LoggerLevel.WARN, rawData, options);
 	}
 
 	/**
@@ -97,7 +105,7 @@ export const useLogger = (initialize: {className: string, environment?: string, 
 	 * @param options
 	 */
 	const log_error = (rawData: any, options: any = null) => {
-		writeLog(LoggerLevel.ERROR, rawData, options);
+		return writeLog(LoggerLevel.ERROR, rawData, options);
 	}
 
 	return { log_info, log_warn, log_error };

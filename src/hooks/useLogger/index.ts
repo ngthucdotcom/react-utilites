@@ -21,8 +21,11 @@ enum LoggerLevel {
  * logger.log_error(data, embedded_data) -> to log error
  *
  * @param initialize
+ * @subparam className: required
+ * @subparam environment: optional, default is 'local'
+ * @subparam dateTimeFormat: optional, default is 'YYYY-MM-DD HH:mm:ss'
  */
-export const useLogger = (initialize: {className: '', environment?: 'local', dateTimeFormat?: 'YYYY-MM-DD HH:mm:ss'}) => {
+export const useLogger = (initialize: {className: string, environment: string, dateTimeFormat: string}) => {
 
 	/**
 	 * A function to make color log by log level
@@ -48,7 +51,7 @@ export const useLogger = (initialize: {className: '', environment?: 'local', dat
 	 * @param options
 	 */
 	const buildLog = (className: string, level: LoggerLevel, data: any, options: any = null) => {
-		const dateTime = moment().format(initialize.dateTimeFormat);
+		const dateTime = moment().format(initialize.dateTimeFormat || 'YYYY-MM-DD HH:mm:ss');
 		const rawData = JSON.stringify(data);
 
 		if (options) {

@@ -7,20 +7,28 @@ enum LoggerLevel {
 }
 
 /**
- * The function write basic log with color in browser
- * To usage, please init variable(s) className and dateTimeFormat (optional)
- * @param className: input used class name or function name or any thing call this function
- * @param dateTimeFormat: optional, default YYYY-MM-DD HH:mm:ss, display in console or same
- * @param environment: optional, default local
- * @returns: this function will return void function to input log
+ * React hooks to write log in console.
+ *
+ * @example
+ * import { useLogger } from 'react-utilities';
+ *
+ * const logger = useLogger({className: 'className'});
+ *
+ * logger.log_info(data, embedded_data) -> to log info
+ *
+ * logger.log_warn(data, embedded_data) -> to log warning
+ *
+ * logger.log_error(data, embedded_data) -> to log error
+ *
+ * @param initialize
  */
-export const useLogger = (className = '', environment = 'local', dateTimeFormat = 'YYYY-MM-DD HH:mm:ss') => {
+export const useLogger = (initialize: {className: '', environment: 'local', dateTimeFormat: 'YYYY-MM-DD HH:mm:ss'}) => {
 
 	/**
 	 * A function to make color log by log level
 	 * @param level
 	 */
-	const getStyles = (level) => {
+	const getStyles = (level: LoggerLevel) => {
 		switch (level) {
 			case LoggerLevel.INFO:
 				return 'color: #00ccff';
@@ -40,7 +48,7 @@ export const useLogger = (className = '', environment = 'local', dateTimeFormat 
 	 * @param options
 	 */
 	const buildLog = (className: string, level: LoggerLevel, data: any, options: any = null) => {
-		const dateTime = moment().format(dateTimeFormat);
+		const dateTime = moment().format(initialize.dateTimeFormat);
 		const rawData = JSON.stringify(data);
 
 		if (options) {
@@ -56,13 +64,14 @@ export const useLogger = (className = '', environment = 'local', dateTimeFormat 
 	 * @param options
 	 */
 	const writeLog = (level: LoggerLevel, data: any, options: any = null) => {
-		if (environment === "production") {
+		// @ts-ignore
+		if (initialize.environment === "production") {
 			if (level === LoggerLevel.ERROR) {
-				buildLog(className.toUpperCase(), LoggerLevel.ERROR, data, options);
+				buildLog(initialize.className.toUpperCase(), LoggerLevel.ERROR, data, options);
 			}
 			return;
 		}
-		buildLog(className.toUpperCase(), level, data, options);
+		buildLog(initialize.className.toUpperCase(), level, data, options);
 	}
 
 	/**

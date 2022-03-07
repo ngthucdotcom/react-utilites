@@ -1,5 +1,3 @@
-import {useCallback} from "react";
-
 const moment = require("moment");
 
 enum LoggerLevel {
@@ -39,7 +37,7 @@ export const useLogger = (initialize: UseLoggerParams) => {
 	 * A function to make color log by log level
 	 * @param level
 	 */
-	const getStyles = (level: LoggerLevel) => {
+	const getStyles = (level: LoggerLevel): string => {
 		switch (level) {
 			case LoggerLevel.INFO:
 				return 'color: #00ccff';
@@ -58,7 +56,7 @@ export const useLogger = (initialize: UseLoggerParams) => {
 	 * @param data
 	 * @param options
 	 */
-	const buildLog = (className: string, level: LoggerLevel, data: any, options: any = null) => {
+	const buildLog = (className: string, level: LoggerLevel, data: any, options: any = null): void => {
 		const dateTime = moment().format(initialize.dateTimeFormat || 'YYYY-MM-DD HH:mm:ss');
 		const rawData = JSON.stringify(data);
 
@@ -74,7 +72,7 @@ export const useLogger = (initialize: UseLoggerParams) => {
 	 * @param data
 	 * @param options
 	 */
-	const writeLog = (level: LoggerLevel, data: any, options: any = null) => {
+	const writeLog = (level: LoggerLevel, data: any, options: any = null): void => {
 		if (initialize.environment === "production") {
 			if (level >= LoggerLevel.ERROR) {
 				buildLog(initialize.className.toUpperCase(), LoggerLevel.ERROR, data, options);
@@ -88,25 +86,25 @@ export const useLogger = (initialize: UseLoggerParams) => {
 	 * @param rawData
 	 * @param options
 	 */
-	const log_info = useCallback((rawData: any, options: any = null) => {
+	const log_info = (rawData: any, options: any = null): void => {
 		writeLog(LoggerLevel.INFO, rawData, options);
-	}, []);
+	};
 
 	/**
 	 * @param rawData
 	 * @param options
 	 */
-	const log_warn = useCallback((rawData: any, options: any = null) => {
+	const log_warn = (rawData: any, options: any = null): void => {
 		writeLog(LoggerLevel.WARN, rawData, options);
-	}, []);
+	};
 
 	/**
 	 * @param rawData
 	 * @param options
 	 */
-	const log_error =  useCallback((rawData: any, options: any = null) => {
+	const log_error = (rawData: any, options: any = null): void => {
 		writeLog(LoggerLevel.ERROR, rawData, options);
-	}, []);
+	};
 
 	return { log_info, log_warn, log_error };
 }

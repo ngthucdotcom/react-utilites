@@ -83,28 +83,34 @@ export const useLogger = (initialize: LoggerParams) => {
 	}
 
 	/**
+	 * This function log type info
 	 * @param rawData
 	 * @param options
 	 */
 	const log_info = (rawData: any, options: any = null): void => {
 		writeLog(LoggerLevel.INFO, rawData, options);
+		return;
 	};
 
 	/**
+	 * This function log type warning
 	 * @param rawData
 	 * @param options
 	 */
 	const log_warn = (rawData: any, options: any = null) => {
 		writeLog(LoggerLevel.WARN, rawData, options);
+		return;
 	};
 
 	/**
+	 * This function log type error
 	 * @param rawData
 	 * @param options
 	 */
 	const log_error = (rawData: any, options: any = null) => {
 		writeLog(LoggerLevel.ERROR, rawData, options);
+		return;
 	};
 
-	return { log_info, log_warn, log_error, writeLog };
+	return { log_info, log_warn, log_error };
 }

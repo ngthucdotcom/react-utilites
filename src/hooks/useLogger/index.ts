@@ -1,12 +1,12 @@
 const moment = require("moment");
 
-enum LoggerLevel {
+export enum LoggerLevel {
 	'INFO',
 	'WARN',
 	'ERROR'
 }
 
-interface UseLoggerParams  {
+interface LoggerParams  {
 	className: string;
 	environment?: string;
 	dateTimeFormat?: string
@@ -26,12 +26,12 @@ interface UseLoggerParams  {
  *
  * logger.log_error(data, embedded_data) -> to log error
  *
- * @param initialize
+ * @param initialize type LoggerParams
  * @subparam className: required
  * @subparam environment: optional, default is 'local'
  * @subparam dateTimeFormat: optional, default is 'YYYY-MM-DD HH:mm:ss'
  */
-export const useLogger = (initialize: UseLoggerParams) => {
+export const useLogger = (initialize: LoggerParams) => {
 
 	/**
 	 * A function to make color log by log level
@@ -94,7 +94,7 @@ export const useLogger = (initialize: UseLoggerParams) => {
 	 * @param rawData
 	 * @param options
 	 */
-	const log_warn = (rawData: any, options: any = null): void => {
+	const log_warn = (rawData: any, options: any = null) => {
 		writeLog(LoggerLevel.WARN, rawData, options);
 	};
 
@@ -102,9 +102,9 @@ export const useLogger = (initialize: UseLoggerParams) => {
 	 * @param rawData
 	 * @param options
 	 */
-	const log_error = (rawData: any, options: any = null): void => {
+	const log_error = (rawData: any, options: any = null) => {
 		writeLog(LoggerLevel.ERROR, rawData, options);
 	};
 
-	return { log_info, log_warn, log_error };
+	return { log_info, log_warn, log_error, writeLog };
 }

@@ -18,7 +18,7 @@ export const useTyping = (initialState: any = {debounceTimeout: 300}) => {
 	 * @param value typeof any
 	 * @param callback typeof function
 	 */
-	const onDebounce = (value: any, callback: (value: any) => void) => {
+	function onDebounce(value: any, callback: (value: any) => void) {
 		if (!callback || !(typeof callback === "function")) return;
 		if (typingTimeoutRef.current) {
 			clearTimeout(<NodeJS.Timeout>typingTimeoutRef.current);

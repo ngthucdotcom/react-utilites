@@ -9,7 +9,7 @@ import {useRef} from "react";
 // 	onKeyDown: (event: any, callback: () => void, keyDown?: string) => void;
 // }
 
-export const useTyping = (initialState: any = {debounceTimeout: 300}): any => {
+export const useTyping = (initialState: any = {debounceTimeout: 300}) => {
 	const typingTimeoutRef = useRef({});
 	const debounceTimeout = initialState.debounceTimeout || 300;
 

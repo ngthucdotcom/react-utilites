@@ -18,7 +18,7 @@
 // }
 
 // @ts-ignore
-export const usePagination = (initialize: any): any => {
+export const usePagination = (initialize: any) => {
 
 	const { page, limitPages, totalRecords, rowsPerPage, onPageChange } = initialize;
 	const totalPages = Math.max(1, Math.ceil(totalRecords / rowsPerPage));

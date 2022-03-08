@@ -12,6 +12,12 @@ interface LoggerParams  {
 	dateTimeFormat?: string
 }
 
+interface Logger {
+	log_info: (rawData: any, options: any) => void;
+	log_warn: (rawData: any, options: any) => void;
+	log_error: (rawData: any, options: any) => void;
+}
+
 /**
  * React hooks to write log in console.
  *
@@ -31,7 +37,7 @@ interface LoggerParams  {
  * @subparam environment: optional, default is 'local'
  * @subparam dateTimeFormat: optional, default is 'YYYY-MM-DD HH:mm:ss'
  */
-export const useLogger = (initialize: LoggerParams) => {
+export const useLogger = (initialize: LoggerParams): Logger => {
 
 	/**
 	 * A function to make color log by log level

@@ -1,6 +1,15 @@
 import {useRef} from "react";
 
-export const useTyping = (initialState: any = {debounceTimeout: 300}) => {
+interface TypingParams {
+	debounceTimeout?: number;
+}
+
+interface Typing {
+	onDebounce: (value: any, callback: (value: any) => void) => void;
+	onKeyDown: (event: any, callback: () => void, keyDown?: string) => void;
+}
+
+export const useTyping = (initialState: TypingParams = {debounceTimeout: 300}): Typing => {
 	const typingTimeoutRef = useRef({});
 	const debounceTimeout = initialState.debounceTimeout || 300;
 

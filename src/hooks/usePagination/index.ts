@@ -1,6 +1,26 @@
-// @ts-ignore
-export const usePagination = ({ page, limitPages, totalRecords, rowsPerPage, onPageChange }) => {
+interface PaginationParams {
+	page: number;
+	limitPages: number;
+	totalRecords: number;
+	rowsPerPage: number;
+	onPageChange: (event: any, page: number) => void;
+}
 
+interface Pagination {
+	totalPages: number;
+	startPage: number;
+	pages: Array<number>;
+	handleFirstPageButtonClick: (event: any) => void;
+	handleBackButtonClick: (event: any) => void;
+	handlePageChange: (event: any, page: number) => void;
+	handleNextButtonClick: (event: any) => void;
+	handleLastPageButtonClick: (event: any) => void;
+}
+
+// @ts-ignore
+export const usePagination = (initialize: PaginationParams): Pagination => {
+
+	const { page, limitPages, totalRecords, rowsPerPage, onPageChange } = initialize;
 	const totalPages = Math.max(1, Math.ceil(totalRecords / rowsPerPage));
 	const genPageArray = new Array(totalPages).fill(0);
 	const startPage = Math.max(Math.min(totalPages - limitPages, page), 0);

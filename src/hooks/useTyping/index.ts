@@ -1,15 +1,15 @@
 import {useRef} from "react";
 
-// interface TypingParams {
-// 	debounceTimeout?: number;
-// }
-//
-// interface Typing {
-// 	onDebounce: (value: any, callback: (value: any) => void) => void;
-// 	onKeyDown: (event: any, callback: () => void, keyDown?: string) => void;
-// }
+interface TypingParams {
+	debounceTimeout?: number;
+}
 
-export const useTyping = (initialState: any = {debounceTimeout: 300}) => {
+type Typing = {
+	onDebounce: (value: any, callback: (value: any) => void) => void;
+	onKeyDown: (event: any, callback: () => void, keyDown?: string) => void;
+};
+
+export const useTyping = (initialState: TypingParams = {debounceTimeout: 300}): Typing => {
 	const typingTimeoutRef = useRef({});
 	const debounceTimeout = initialState.debounceTimeout || 300;
 
@@ -18,7 +18,7 @@ export const useTyping = (initialState: any = {debounceTimeout: 300}) => {
 	 * @param value typeof any
 	 * @param callback typeof function
 	 */
-	function onDebounce(value: any, callback: (value: any) => void) {
+	const onDebounce = (value: any, callback: (value: any) => void) => {
 		if (!callback || !(typeof callback === "function")) return;
 		if (typingTimeoutRef.current) {
 			clearTimeout(<NodeJS.Timeout>typingTimeoutRef.current);

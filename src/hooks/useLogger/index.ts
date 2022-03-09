@@ -6,17 +6,17 @@ export enum LoggerLevel {
 	'ERROR'
 }
 
-// interface LoggerParams  {
-// 	className: string;
-// 	environment?: string;
-// 	dateTimeFormat?: string
-// }
-//
-// interface Logger {
-// 	log_info: (rawData: any, options: any) => void;
-// 	log_warn: (rawData: any, options: any) => void;
-// 	log_error: (rawData: any, options: any) => void;
-// }
+interface LoggerParams  {
+	className: string;
+	environment?: string;
+	dateTimeFormat?: string
+}
+
+type Logger = {
+	log_info: (rawData: any, options: any) => void;
+	log_warn: (rawData: any, options: any) => void;
+	log_error: (rawData: any, options: any) => void;
+}
 
 /**
  * React hooks to write log in console.
@@ -37,7 +37,7 @@ export enum LoggerLevel {
  * @subparam environment: optional, default is 'local'
  * @subparam dateTimeFormat: optional, default is 'YYYY-MM-DD HH:mm:ss'
  */
-export const useLogger = (initialize: any) => {
+export const useLogger = (initialize: LoggerParams): Logger => {
 
 	/**
 	 * A function to make color log by log level

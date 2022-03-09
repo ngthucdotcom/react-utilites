@@ -13,9 +13,9 @@ interface LoggerParams  {
 }
 
 type Logger = {
-	log_info: (rawData: any, options: any) => void;
-	log_warn: (rawData: any, options: any) => void;
-	log_error: (rawData: any, options: any) => void;
+	log_info: (rawData: any, options?: any) => void;
+	log_warn: (rawData: any, options?: any) => void;
+	log_error: (rawData: any, options?: any) => void;
 }
 
 /**

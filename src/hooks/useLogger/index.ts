@@ -62,14 +62,14 @@ export const useLogger = (initialize: LoggerParams): Logger => {
 	 * @param data
 	 * @param options
 	 */
-	const buildLog = (className: string, level: LoggerLevel, data: any, options: any = null): void => {
+	const buildLog = (className: string, level: LoggerLevel = LoggerLevel.INFO, data: any, options: any = null): void => {
 		const dateTime = moment().format(initialize.dateTimeFormat || 'YYYY-MM-DD HH:mm:ss');
 		const rawData = JSON.stringify(data);
 
 		if (options) {
-			console.log(`%c[${dateTime}][${level}][${className}]:`, getStyles(level), rawData, options);
+			console.log(`%c[${dateTime}][${LoggerLevel[level]}][${className}]:`, getStyles(level), rawData, options);
 		} else {
-			console.log(`%c[${dateTime}][${level}][${className}]:`, getStyles(level), rawData);
+			console.log(`%c[${dateTime}][${LoggerLevel[level]}][${className}]:`, getStyles(level), rawData);
 		}
 	}
 
